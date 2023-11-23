@@ -31,11 +31,11 @@ npm install ethers@5
 **4. 修改程序参数：**
 
 以上3步都安装完成后，使用Vs code打开代码文件，并修改如下参数，16进制我已经放了Pols的16进制，如果你打这个铭文，16进制不需要修改
-  - PrivateKey：钱包私钥
-  - toAddress：私钥对应的钱包地址
-  - provider：alchemy申请的RPC节点，或者使用chainlist的节点链接，炼金术网站：https://dashboard.alchemy.com/
-  - hexData：铭文的16进制数据
-  - repeatCount：需要打多少张铭文
+  - PrivateKey：私钥
+  - toAddress：地址
+  - provider：alchemy PRC，要在哪个链上打，就用哪个链的URL，网站：https://dashboard.alchemy.com/或者https://chainlist.org/
+  - hexData：铭文的16进制
+  - repeatCount：要打的铭文数量
 
 
 **5. 运行脚本：**
@@ -54,6 +54,6 @@ windows：在文件夹上方的路径栏输入“CMD”，然后输入“node au
 **6. 查询你打的张数和当前进度：**
 
 ```
-https://dune.com/sleeeeep/pols
+索引
 ```
 在dune看板中输入你的地址，就可以看到打了多少张
