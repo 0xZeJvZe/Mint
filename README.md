@@ -1,80 +1,59 @@
-# 
-const { ethers } = require("ethers");
+# Mint
 
-// 配置你的私钥和目标地址
-const privateKey = "私钥"; 
-const toAddress = "地址"; 
+**1. 下载Node.JS软件：**
+```
+https://nodejs.org/en
+```
+安装好之后，检查一下是否安装成功，打开一个终端窗口，输入：
+```
+node -v
+npm -v
+```
+<img width="218" alt="image" src="https://github.com/0xsongsu/autoMint/assets/66813860/2c2d3327-44ef-4f18-a12f-f8831337a41c">
 
-// 连接到 Polygon 节点
-const provider = new ethers.providers.JsonRpcProvider("Polygon节点，炼金术自行申请"); 
+像这样返回版本号就说明安装成功，如果实在不知道怎么安装，百度或者google搜索安装教程
 
-// 创建钱包
-const wallet = new ethers.Wallet(privateKey, provider);
 
-// 自定义十六进制数据
-const hexData = ""; // 替换为你想要的十六进制数据
+**2. 下载VS Code：**
+```
+https://code.visualstudio.com/download
+```
+下载最新版的就可以，看不懂英文就自行搜索“Vs code中文翻译插件“相关教程
 
-// 获取当前账户的 nonce
-async function getCurrentNonce(wallet) {
-  try {
-    const nonce = await wallet.getTransactionCount("pending");
-    console.log("Nonce:", nonce);
-    return nonce;
-  } catch (error) {
-    console.error("Error fetching nonce:", error.message);
-    throw error;
-  }
-}
 
-// 获取当前主网 gas 价格
-async function getGasPrice() {
-  const gasPrice = await provider.getGasPrice();
-  return gasPrice;
-}
-// 获取链上实时 gasLimit
-async function getGasLimit() {
-  const gasLimit = await provider.estimateGas({
-    to: toAddress,
-    value: ethers.utils.parseEther("0"),
-    data: hexData,
-  });
+**3. 在终端或者CMD安装ethers模块：**
+```
+npm install ethers@5
+```
+如果你是windows电脑，最好是使用管理员身份打开终端
 
-  return gasLimit.toNumber();
-}
 
-// 转账交易
-async function sendTransaction(nonce) {
-  const currentGasPrice = await getGasPrice(); // 获取实时 gasPrice
-  const increasedGasPrice = currentGasPrice.mul(110).div(100); // 在当前 gasPrice 上增加10%
-  const gasLimit = await getGasLimit(); 
+**4. 修改程序参数：**
 
-  const transaction = {
-    to: toAddress,
-    value: ethers.utils.parseEther("0"), // 替换为你要转账的金额
-    data: hexData, 
-    nonce: nonce, 
-    gasPrice: increasedGasPrice, 
-    gasLimit: gasLimit, 
-  };
+以上3步都安装完成后，使用Vs code打开代码文件，并修改如下参数，16进制我已经放了Pols的16进制，如果你打这个铭文，16进制不需要修改
+  - PrivateKey：钱包私钥
+  - toAddress：私钥对应的钱包地址
+  - provider：alchemy申请的RPC节点，或者使用chainlist的节点链接，炼金术网站：https://dashboard.alchemy.com/
+  - hexData：铭文的16进制数据
+  - repeatCount：需要打多少张铭文
 
-  try {
-    const tx = await wallet.sendTransaction(transaction);
-    console.log(`Transaction with nonce ${nonce} hash:`, tx.hash);
-  } catch (error) {
-    console.error(`Error in transaction with nonce ${nonce}:`, error.message);
-  }
-}
 
-// 定义重复次数
-const repeatCount = 300; // 你想要打多少张，这里就设置多少
+**5. 运行脚本：**
 
-async function sendTransactions() {
-  const currentNonce = await getCurrentNonce(wallet);
+在VS Code的终端中执行命令
+```
+node automint.js
+```
+<img width="833" alt="image" src="https://github.com/0xsongsu/autoMint/assets/66813860/8b55a180-2df4-4d27-beed-237cee19b4a7">
 
-  for (let i = 0; i < repeatCount; i++) {
-    const gasPrice = await getGasPrice(); // 获取实时 gas 价格
-    await sendTransaction(currentNonce + i, gasPrice);
-  }
-}
+mac电脑：对着脚本文件夹点右键，然后“新建位于文件夹位置的终端”，再在终端中输入“node automint.js”
 
-sendTransactions();
+windows：在文件夹上方的路径栏输入“CMD”，然后输入“node automint.js”
+
+
+**6. 查询你打的张数和当前进度：**
+
+```
+https://dune.com/sleeeeep/pols
+```
+在dune看板中输入你的地址，就可以看到打了多少张
