@@ -1,7 +1,4 @@
-//
-
-1. `const { ethers } = require("ethers");`: 这行代码导入ethers.js库，使其可用于脚本。
-
+//1. `const { ethers } = require("ethers");`: 这行代码导入ethers.js库，使其可用于脚本。
 2. 设置私钥（`privateKey`）和目标地址（`toAddress`），分别代表发送方的私钥和接收方的地址。
 
 3. `const provider = new ethers.providers.JsonRpcProvider("Polygon节点URL");`: 使用JsonRpcProvider连接到Polygon网络，需要提供Polygon节点的URL。在哪个链上打就用哪个链的URL
