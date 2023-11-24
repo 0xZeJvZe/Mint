@@ -1,3 +1,32 @@
+//
+
+1. `const { ethers } = require("ethers");`: 这行代码导入ethers.js库，使其可用于脚本。
+
+2. 设置私钥（`privateKey`）和目标地址（`toAddress`），分别代表发送方的私钥和接收方的地址。
+
+3. `const provider = new ethers.providers.JsonRpcProvider("Polygon节点URL");`: 使用JsonRpcProvider连接到Polygon网络，需要提供Polygon节点的URL。在哪个链上打就用哪个链的URL
+
+4. `const wallet = new ethers.Wallet(privateKey, provider);`: 创建一个钱包，使用提供的私钥和连接到Polygon网络的提供者。
+
+5. `const hexData = "...";`: 这里是你要打铭文的16进制
+
+6. `async function getCurrentNonce(wallet) { ... }`: 这个函数用于获取当前账户的交易nonce，即交易次序号。
+
+7. `async function getGasPrice() { ... }`: 获取当前主网 gas 价格的函数。
+
+8. `async function getGasLimit() { ... }`: 获取链上实时 gasLimit 的函数。
+
+9. `async function sendTransaction(nonce) { ... }`: 这个函数用于发送交易。它构建了一个交易对象，包括接收地址、金额、十六进制数据等，并且指定了 gas 价格、gas 限制和nonce等信息。
+
+10. `const repeatCount = 300;`: 这是设置交易重复次数的变量。
+
+11. `async function sendTransactions() { ... }`: 这个函数用于发送多个交易，它调用`sendTransaction`函数来多次发送交易，根据设定的重复次数来执行。
+
+12. `sendTransactions();`: 最后，调用`sendTransactions`函数来执行整个过程，发送多个交易到目标地址。
+
+
+
+
 const { ethers } = require("ethers");
 
 // 配置你的私钥和目标地址
